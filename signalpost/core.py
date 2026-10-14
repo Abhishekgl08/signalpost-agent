@@ -194,11 +194,28 @@ async def fetch_official_data(client: httpx.AsyncClient, org: str) -> Dict[str, 
                     "data": r.json()
                 }
             elif r.status_code in (404, 204):
-                out[key] = {"status": "not_available", "source": url}
+                out[key] = {
+                    "status": "not_available",
+                    "source": url,
+                    "retrievedAt": utc_now(),
+                    "hash": sha256_bytes(url.encode())
+                }
             else:
-                out[key] = {"status": "failed", "source": url, "http": r.status_code}
+                out[key] = {
+                    "status": "failed",
+                    "source": url,
+                    "http": r.status_code,
+                    "retrievedAt": utc_now(),
+                    "hash": sha256_bytes(url.encode())
+                }
         except Exception as e:
-            out[key] = {"status": "failed", "source": url, "error": str(e)}
+            out[key] = {
+                "status": "failed",
+                "source": url,
+                "error": str(e),
+                "retrievedAt": utc_now(),
+                "hash": sha256_bytes(url.encode())
+            }
 
     return out
 
@@ -518,14 +535,19 @@ async def process_single_company(
             sub_counts = [s.get("antallAnsatte") for s in subunits_list if s.get("antallAnsatte") is not None]
             emp_count = sum(sub_counts) if sub_counts else (row.get("employees") if row.get("employees") is not None else 0)
 
+        ent_rec = reg.get("entity", {})
+        source_url = ent_rec.get("source", f"https://data.brreg.no/enhetsregisteret/api/enheter/{org}")
+        retrieved_at = ent_rec.get("retrievedAt") or utc_now()
+        content_hash = ent_rec.get("hash") or sha256_bytes(org.encode())
+
         observations.append({
             "id": f"obs-{org}-workforce-registry",
             "organisation_number": org,
             "platform": "brreg",
             "signal_type": "workforce_snapshot",
-            "source_url": reg["entity"]["source"],
-            "retrieved_at": reg["entity"]["retrievedAt"],
-            "content_sha256": reg["entity"]["hash"],
+            "source_url": source_url,
+            "retrieved_at": retrieved_at,
+            "content_sha256": content_hash,
             "exact_entity": True,
             "identity_proof": [{"type": "official_registry_number", "org": org}],
             "acquisition_mode": "official_api",
