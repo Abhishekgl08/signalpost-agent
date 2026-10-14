@@ -21,7 +21,7 @@ Please find our official submission details for the SignalPost Company Research 
 
 1. Agent Name: SignalPost Intelligence Agent
 2. Repository URL: <YOUR_PUBLIC_GITHUB_REPO_URL>
-3. Exact Commit Hash: <YOUR_LATEST_COMMIT_HASH>
+3. Exact Commit Hash: 0c2aeabc74f14848a432cff29f75ed114f7ade6b
 4. Run Command:
    python -m signalpost run --input <input_batch.jsonl> --output <output_dir> --conc 8
 
