@@ -1,0 +1,7 @@
+.venv/
+.env
+out/
+data/
+__pycache__/
+*.pyc
+brave_api_key.txt

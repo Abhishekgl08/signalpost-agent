@@ -1,0 +1,8 @@
+httpx>=0.27
+groq>=0.11
+selectolax>=0.3.21
+trafilatura>=1.12
+extruct>=0.17
+tldextract>=5.1
+rapidfuzz>=3.9
+pydantic>=2.7
