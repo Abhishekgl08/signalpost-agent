@@ -1,7 +1,13 @@
 .venv/
 .env
 out/
-data/
 __pycache__/
 *.pyc
 brave_api_key.txt
+data/*.gz
+data/starter.tar.gz
+data/signalpost-starter-kit/
+data/sample_5.jsonl
+data/sample_5.txt
+data/sample_200.jsonl
+data/sample_250.jsonl

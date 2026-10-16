@@ -12,19 +12,20 @@ DEFAULT_MODEL = os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b")
 
 
 def load_keys():
-    raw = os.getenv("GROQ_KEYS")
+    raw = os.getenv("GROQ_KEYS") or os.getenv("GROQ_API_KEY")
     if not raw:
         for p in (Path.cwd() / ".env", Path(__file__).resolve().parent.parent / ".env"):
             if p.exists():
                 for line in p.read_text().splitlines():
-                    if line.startswith("GROQ_KEYS="):
+                    line = line.strip()
+                    if line.startswith("GROQ_KEYS=") or line.startswith("GROQ_API_KEY="):
                         raw = line.split("=", 1)[1]
                         break
             if raw:
                 break
     keys = [k.strip() for k in (raw or "").split(",") if k.strip()]
     if not keys:
-        raise RuntimeError("No GROQ_KEYS found (env var or .env)")
+        raise RuntimeError("No GROQ_KEYS or GROQ_API_KEY found (env var or .env)")
     return keys
 
 
