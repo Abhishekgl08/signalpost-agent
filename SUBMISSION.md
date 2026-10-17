@@ -20,8 +20,8 @@ Dear Builderr Evaluation Team,
 Please find our official submission details for the SignalPost Company Research Challenge (Round 1):
 
 1. Agent Name: SignalPost Intelligence Agent
-2. Repository URL: <YOUR_PUBLIC_GITHUB_REPO_URL>
-3. Exact Commit Hash: f3d7f25fd1b518db3682d88e6ab3f873ae95aa32
+2. Repository URL: https://github.com/Abhishekgl08/signalpost-agent
+3. Exact Commit Hash: 16319a7aa4adbe6114e1100abfe03e45c3cd3f51
 4. Run Command:
    python -m signalpost run --input <input_batch.jsonl> --output <output_dir> --conc 8
 
@@ -59,8 +59,8 @@ SignalPost Team
 
 ```bash
 # 1. Clone repository
-git clone <YOUR_GITHUB_REPO_URL>
-cd signalpost_agent
+git clone https://github.com/Abhishekgl08/signalpost-agent.git
+cd signalpost-agent
 
 # 2. Set up clean environment
 python3 -m venv .venv
